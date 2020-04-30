@@ -26,7 +26,6 @@ function App() {
       .then(res => res.json())
       .then(res => setAllUsers(res))
   }, [])
-  console.log(allUsers)
   return (
     <HashRouter>
       <Switch>
