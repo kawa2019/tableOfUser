@@ -55,7 +55,7 @@ export default function Dashboard({ allUsers, setAllUsers, setAddEdit, setName, 
                     User List
                     <Button variant="primary"><Link to="/formUser" style={{ color: "#fff" }} onClick={() => { setAddEdit(true); setName(''); setEmail('') }}>Add new</Link></Button>{' '}
                 </Card.Header>
-                <Table striped bordered hover >
+                <Table striped bordered hover responsive >
                     <thead>
                         <tr>
                             <th>Id</th>
