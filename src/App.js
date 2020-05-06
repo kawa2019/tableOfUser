@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.css';
-import './App.css';
 
 import {
   HashRouter,
   Route,
-  Link,
   Switch,
-  NavLink,
 } from 'react-router-dom';
-
 import Dashboard from './components/Dashboard'
 import FormUsers from './components/FormUser';
-
 function App() {
   const [allUsers, setAllUsers] = useState([]);
   const [addEdit, setAddEdit] = useState(true);
@@ -23,9 +17,11 @@ function App() {
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
-      .then(res => res.json())
-      .then(res => setAllUsers(res))
+      .then(response => response.json())
+      .then(response => setAllUsers(response))
   }, [])
+
+
   return (
     <HashRouter>
       <Switch>
@@ -43,5 +39,3 @@ function App() {
 }
 
 export default App;
-
-

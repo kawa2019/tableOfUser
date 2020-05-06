@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Table, Card, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
-export default function Dashboard({ allUsers, setAllUsers, addEdit, setAddEdit, name, setName, email, setEmail, setId, id }) {
+export default function Dashboard({ allUsers, setAllUsers, setAddEdit, setName, setEmail, setId, id }) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -15,19 +15,18 @@ export default function Dashboard({ allUsers, setAllUsers, addEdit, setAddEdit, 
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
                 return allUsers.map(user => {
-                    if (user.id == id) {
+                    if (user.id === id) {
                         return
                     } else {
                         return user
                     }
                 })
             })
-            .then(newArrayUsers => newArrayUsers.filter(user => { return user != undefined }))
+            .then(newArrayUsers => newArrayUsers.filter(user => { return user !== undefined }))
             .then(correctArrayUsers => setAllUsers(correctArrayUsers))
             .then(() => {
-                if (allUsers.length == 1) {
+                if (allUsers.length === 1) {
                     setNoUsers('showZero')
                 } else { setNoUsers('') }
             })
@@ -51,12 +50,12 @@ export default function Dashboard({ allUsers, setAllUsers, addEdit, setAddEdit, 
     }
     return (
         <>
-            <Card>
-                <Card.Header style={{display:'flex',justifyContent:"space-between"}} >
+            <Card style={{ border: "none" }}>
+                <Card.Header style={{ display: 'flex', justifyContent: "space-between" }} >
                     User List
                     <Button variant="primary"><Link to="/formUser" style={{ color: "#fff" }} onClick={() => { setAddEdit(true); setName(''); setEmail('') }}>Add new</Link></Button>{' '}
                 </Card.Header>
-                <Table striped bordered hover>
+                <Table striped bordered hover >
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -70,8 +69,8 @@ export default function Dashboard({ allUsers, setAllUsers, addEdit, setAddEdit, 
                     </thead>
                     <tbody>
                         {noUsers && <tr><td colSpan="7">0 users</td></tr>}
-                        {allUsers.map(user => {
-                            return (<tr>
+                        {allUsers.map((user, index) => {
+                            return (<tr key={index}>
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.username}</td>

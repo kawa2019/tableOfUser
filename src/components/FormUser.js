@@ -2,31 +2,28 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom'
 
-export default function FormUsers({ allUsers, setAllUsers, addEdit, setAddEdit, name, setName, email, setEmail, id }) {
-
+export default function FormUsers({ allUsers, setAllUsers, addEdit, name, setName, email, setEmail, id }) {
     const [errorName, setErrorName] = useState("");
     const [errorEmail, setErrorEmail] = useState('');
-    const history = useHistory()
-
+    const history = useHistory();
     const validateEmail = (email) => {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase())
-    }
-
+    };
     const checkForm = (e, id) => {
         e.preventDefault();
         setErrorName('');
         setErrorEmail("");
 
-        if (name.trim().length == 0) {
+        if (name.trim().length === 0) {
             setErrorName('name is wrong');
         };
 
-        if (!validateEmail(email) || email.trim().length == 0) {
+        if (!validateEmail(email) || email.trim().length === 0) {
             setErrorEmail('E-mail is wrong');
         };
 
-        if ((name.trim().length == 0) || (!validateEmail(email) || email.trim().length == 0)) {
+        if ((name.trim().length === 0) || (!validateEmail(email) || email.trim().length === 0)) {
             return;
         }
         if (addEdit) {
@@ -52,7 +49,7 @@ export default function FormUsers({ allUsers, setAllUsers, addEdit, setAddEdit, 
                 .then(response => {
                     console.log(response);
                     return allUsers.map(user => {
-                        if (user.id == response.id) {
+                        if (user.id === response.id) {
                             return response
                         } else {
                             return user
@@ -63,7 +60,6 @@ export default function FormUsers({ allUsers, setAllUsers, addEdit, setAddEdit, 
                 .then(history.push("/"))
         }
     }
-
     const myBorder = (error) => {
         let style = {}
         if (error) {
@@ -72,8 +68,6 @@ export default function FormUsers({ allUsers, setAllUsers, addEdit, setAddEdit, 
             }
         }
     }
-
-
     return (
         <Form onSubmit={e => checkForm(e, id)}>
             <Form.Group controlId="formBasicEmail">
